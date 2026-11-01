@@ -3,7 +3,7 @@
 > **누가 작업해도 일관성이 있게 고도화 되도록 설계하는 걸 지향함.**
 > 따라서 룰과 훅, 린트로 시스템을 설계해서 dogfood로 기대와 얼마나 다른지 체크하고, 반복함으로 기대 방향으로 구현하며, 이런 시스템을 자동화하려는 지향점을 갖고 있음.
 
-> 아래는 구조·역할만. 코드·내부 명칭은 없음.
+지향하는 구조의 예.
 
 ### 구조 (1) — RN 베이스
 
@@ -14,7 +14,7 @@ RN 모노레포 (pnpm + Turborepo)
 │  ├ preview ········ OTA/빌드 미리보기
 │  ├ storybook ······ 컴포넌트 카탈로그
 │  ├ web / be ······· 웹 · 백엔드
-│  └ screenshot-agent  반복 캡처 자동화 (아래 "또 하나")
+│  └ screenshot-agent  캡처 자동화 에이전트
 └ packages/
    ├ design-system/
    │  ├ components ·· 화면 조립 단위 (Button, Card, BottomSheet …)
@@ -23,8 +23,6 @@ RN 모노레포 (pnpm + Turborepo)
    ├ feature-*  ····· 도메인별 기능 패키지
    └ harness ········ 룰·린트·게이트 (구조 2)
 ```
-
-앱 본체(apps/rn)는 한 방향 의존으로만 쌓음:
 
 ```
 apps/rn/
@@ -64,15 +62,13 @@ harness (packages/harness + scripts + hooks + agent)
                    설계→구현→셀프리뷰→게이트→PR, 막히면 추측 대신 질문
 ```
 
-부모(기존 환경)와는 한 방향만 연결함. 새 환경 규칙이 부모로 새는 건 막고, 새 환경이 부모를 개선하는 건 허용.
-
-### 또 하나 — 반복 작업 무인화
-
-편성 스케줄 읽어서 시뮬레이터로 앱 돌려 화면 캡처, 디스크·재시도까지 관리해서 결과를 팀 채널에 자동 업로드함. 비개발팀이 매일 손으로 찍어 올리던 QA 반복을 무인 잡으로 돌림.
-
 ### 성향
 
-예방 지향 — 터지고 수습보다 안 터지게 막음(애매하면 일단 막는 fail-closed). 도구 고집 없음, AI로 먼저 설계·검토하고 구현함. 회의는 최소·아젠다·결론 중심, 이견 갈리면 타협안까지 만듦.
+- 예방지향
+- 도구 고집없음
+- 휘발적인 업무방식 지양
+- 설계 문서지향형이지만 융통성 있음
+- 주도적인 업무태도
 
 ### 기술
 
@@ -80,7 +76,6 @@ harness (packages/harness + scripts + hooks + agent)
 
 ### 더 보기
 
-스크롤하면서 보는 소개 페이지. 들어가 보면 뭔가 더 있음.
 → **https://broccoliindb.github.io**
 
 ---
@@ -93,7 +88,7 @@ harness (packages/harness + scripts + hooks + agent)
 > **I design so that anyone's work stays consistent and keeps getting better.**
 > So I build the system out of rules, hooks and lint, use dogfooding to check how far it is from intent, and iterate toward intent — and I aim to automate that system itself.
 
-> Below is structure and roles only — no code, no internal names.
+An example of the structure I aim for.
 
 ### Structure (1) — the RN base
 
@@ -104,7 +99,7 @@ RN monorepo (pnpm + Turborepo)
 │  ├ preview ········ OTA/build preview
 │  ├ storybook ······ component catalog
 │  ├ web / be ······· web · backend
-│  └ screenshot-agent  capture automation (see "One more")
+│  └ screenshot-agent  capture-automation agent
 └ packages/
    ├ design-system/
    │  ├ components ·· building blocks (Button, Card, BottomSheet …)
@@ -113,8 +108,6 @@ RN monorepo (pnpm + Turborepo)
    ├ feature-*  ····· per-domain feature packages
    └ harness ········ rules · lint · gate (Structure 2)
 ```
-
-The app (apps/rn) is stacked one-way only:
 
 ```
 apps/rn/
@@ -154,15 +147,13 @@ harness (packages/harness + scripts + hooks + agent)
                    design→build→self-review→gate→PR; asks instead of guessing
 ```
 
-The parent (legacy env) is wired one-way: new-env rules can't leak into the parent, but the new env is allowed to improve the parent.
-
-### One more — a manual chore made hands-off
-
-A job reads the release schedule, drives the app in a simulator to capture each screen, handles disk and retries, and posts results straight to the team's channel. A non-dev team's daily manual QA, turned into an unattended job.
-
 ### Style
 
-Prevention over cleanup — block it before it breaks (fail-closed when unsure). No attachment to tools; design and review with AI first, then build. Meetings kept few, agenda'd, driven to a decision; when opinions split, I work it to a compromise.
+- Prevention-first
+- No attachment to tools
+- Avoid ephemeral, ad-hoc ways of working
+- Design/doc-oriented, but flexible
+- Proactive by default
 
 ### Tech
 
@@ -170,7 +161,6 @@ Prevention over cleanup — block it before it breaks (fail-closed when unsure).
 
 ### More
 
-A scroll-through intro page. Walk around and you'll find there's more to it.
 → **https://broccoliindb.github.io**
 
 </details>
